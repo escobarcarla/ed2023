@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <math.h>
+
+#define TAM_MAX 10
+
+int main() {
+    int n;
+    float num;
+    float soma = 0, media = 0;
+    float vetor[TAM_MAX];
+
+    printf("Quantos numeros em sua serie? ");
+    scanf("%d", &n);
+
+    if (n > TAM_MAX) {
+        printf("O numero maximo de elementos e %d\n", TAM_MAX);
+        return 0;
+    }
+
+    //   Soma dos numeros 
+    printf("Digite os %d numeros:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &num);
+        vetor[i] = num;
+        soma += num;
+    }
+
+    // Calculando a media
+    media = soma / n;
+
+    // Calculando o valor minimo e maximo
+    float min = vetor[0];
+    float max = vetor[0];
+
+    for (int i = 1; i < n; i++) {
+        if (vetor[i] < min) {
+            min = vetor[i];
+        }
+        if (vetor[i] > max) {
+            max = vetor[i];
+        }
+    }
+
+    // Calculando a mediana sem ordenacao
+    float mediana;
+
+    if (n % 2 == 0) {
+        // Se a quantidade de numeros for par, calcula a mediana sem ordenacao.
+        int idx1 = n / 2 - 1;
+        int idx2 = n / 2;
+        mediana = (vetor[idx1] + vetor[idx2]) / 2.0;
+    } else {
+        // Se a quantidade de numeros for impar, calcula a mediana sem ordenacao.
+        int idx = n / 2;
+        mediana = vetor[idx];
+    }
+
+    // Calculando o desvio-padrao populacional 
+    float desvio_padrao = 0;
+    for (int i = 0; i < n; i++) {
+        desvio_padrao += (vetor[i] - media) * (vetor[i] - media);
+    }
+    desvio_padrao = sqrt(desvio_padrao / n);
+
+    // Exibicao dos resultados
+    printf("Minimo: %.2f\n", min);
+    printf("Maximo: %.2f\n", max);
+    printf("Media: %.2f\n", media);
+    printf("Mediana: %.2f\n", mediana);
+    printf("Desvio-padrao populacional: %.2f\n", desvio_padrao);
+
+    return 0;
+}
